@@ -44,3 +44,49 @@ a {
   &.error { background-color: var(--error-color); }
   &.show { opacity: 1; }
 }
+
+.form-group {
+  margin-bottom: 1rem;
+
+  input,
+  select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 1rem;
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+  }
+}
+
+.btn-primary {
+  padding: 0.75rem 1.5rem;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+
+  &:hover { opacity: 0.9; }
+}
+
+.btn-danger {
+  padding: 0.75rem 1rem;
+  background: transparent;
+  color: var(--error-color);
+  border: 1px solid var(--error-color);
+  border-radius: 6px;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--error-color);
+    color: white;
+  }
+}

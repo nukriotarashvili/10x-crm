@@ -8,7 +8,6 @@
 </head>
 <body>
     <div class="app-layout">
-        <!-- Sidebar Navigation (P0) -->
         <aside class="sidebar">
             <div class="brand" id="logoBrand">10X CRM</div>
             <nav class="nav-links">
@@ -22,15 +21,13 @@
             </div>
         </aside>
 
-        <!-- Main Content -->
         <main class="main-content">
             <div class="page-header">
                 <h1 id="welcomeMessage">Welcome back!</h1>
-                <div id="liveClock" style="color: var(--text-secondary); font-weight: 500;"></div>
+                <div id="liveClock" class="live-clock"></div>
             </div>
 
-            <!-- Dashboard ეტაპზე აქ დავამატებთ სტატისტიკის გრიდებს -->
-            <div class="panel" style="text-align: center; color: var(--text-secondary);">
+            <div id="dashboardContent" class="panel">
                 Dashboard metrics will be rendered here.
             </div>
         </main>
@@ -38,5 +35,4 @@
     <script src="js/guard.js"></script>
     <script src="js/dashboard.js"></script>
 </body>
-
 </html>

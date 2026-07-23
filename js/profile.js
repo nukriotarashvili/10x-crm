@@ -7,27 +7,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!currentUser) return;
 
-    // P5.1 - პროფილის ინფორმაციის რენდერი
     const profileInfoBlock = document.getElementById('profileInfoBlock');
-    
+    const editProfilePanel = document.getElementById('editProfilePanel');
+    const changePasswordPanel = document.getElementById('changePasswordPanel');
+
     const renderProfileHeader = () => {
         const initials = currentUser.fullName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
         profileInfoBlock.innerHTML = `
-            <div style="display: flex; align-items: center; gap: 1.5rem;">
-                <div style="width: 60px; height: 60px; background: var(--primary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">
-                    ${initials}
-                </div>
+            <div class="profile-header">
+                <div class="profile-avatar">${initials}</div>
                 <div>
                     <h2>${currentUser.fullName}</h2>
-                    <p style="color: var(--text-secondary);">${currentUser.email} • ${currentUser.company || ''}</p>
-                    <p style="font-size: 0.85rem; margin-top: 0.5rem; color: var(--text-secondary);">Member since ${new Date(currentUser.createdAt).toLocaleDateString()}</p>
+                    <p class="profile-meta">${currentUser.email} • ${currentUser.company || ''}</p>
+                    <p class="profile-since">Member since ${new Date(currentUser.createdAt).toLocaleDateString()}</p>
                 </div>
             </div>
         `;
     };
     renderProfileHeader();
 
-    // ველის შეცდომის ჩვენება (P0.4)
     const showError = (input, message) => {
         input.classList.add('input-error');
         let errorDisplay = input.nextElementSibling;
@@ -44,20 +42,16 @@ document.addEventListener('DOMContentLoaded', () => {
         form.querySelectorAll('.error-text').forEach(el => el.remove());
     };
 
-    // ფორმების ინექცია DOM-ში (Skeletons-ის ნაცვლად)
-    const formsContainer = document.querySelectorAll('.panel');
-    
-    // Edit Profile (P5.2)
-    formsContainer[1].innerHTML = `
+    editProfilePanel.innerHTML = `
         <h3>Edit Profile</h3>
-        <form id="editProfileForm" style="margin-top: 1rem;" novalidate>
-            <div style="margin-bottom: 1rem;">
-                <input type="text" id="editName" value="${currentUser.fullName}" placeholder="Full Name" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 4px;" required>
+        <form id="editProfileForm" class="profile-form" novalidate>
+            <div class="form-group">
+                <input type="text" id="editName" value="${currentUser.fullName}" placeholder="Full Name" required>
             </div>
-            <div style="margin-bottom: 1rem;">
-                <input type="text" id="editCompany" value="${currentUser.company || ''}" placeholder="Company" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 4px;">
+            <div class="form-group">
+                <input type="text" id="editCompany" value="${currentUser.company || ''}" placeholder="Company">
             </div>
-            <button type="submit" style="padding: 0.75rem 1.5rem; background: var(--primary-color); color: white; border: none; border-radius: 4px; cursor: pointer;">Save Changes</button>
+            <button type="submit" class="btn-primary">Save Changes</button>
         </form>
     `;
 
@@ -66,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
         clearErrors(e.target);
         const nameInput = document.getElementById('editName');
         const companyInput = document.getElementById('editCompany');
-        
+
         if (nameInput.value.trim().length < 3) {
             showError(nameInput, 'Full name must be at least 3 characters');
             return;
@@ -74,40 +68,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
         currentUser.fullName = nameInput.value.trim();
         currentUser.company = companyInput.value.trim();
-        
+
         const userIndex = users.findIndex(u => u.id === currentUser.id);
         users[userIndex] = currentUser;
         localStorage.setItem('crm_users', JSON.stringify(users));
-        
+
         renderProfileHeader();
         window.showToast('Profile updated ✓', 'success');
     });
 
-    // Change Password (P5.3)
-    formsContainer[2].innerHTML = `
+    changePasswordPanel.innerHTML = `
         <h3>Change Password</h3>
-        <form id="changePasswordForm" style="margin-top: 1rem;" novalidate>
-            <div style="margin-bottom: 1rem;">
-                <input type="password" id="currentPass" placeholder="Current Password" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 4px;" required>
+        <form id="changePasswordForm" class="profile-form" novalidate>
+            <div class="form-group">
+                <input type="password" id="currentPass" placeholder="Current Password" required>
             </div>
-            <div style="margin-bottom: 1rem;">
-                <input type="password" id="newPass" placeholder="New Password" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 4px;" required>
+            <div class="form-group">
+                <input type="password" id="newPass" placeholder="New Password" required>
             </div>
-            <div style="margin-bottom: 1rem;">
-                <input type="password" id="confirmNewPass" placeholder="Confirm New Password" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 4px;" required>
+            <div class="form-group">
+                <input type="password" id="confirmNewPass" placeholder="Confirm New Password" required>
             </div>
-            <button type="submit" style="padding: 0.75rem 1.5rem; background: var(--primary-color); color: white; border: none; border-radius: 4px; cursor: pointer;">Change Password</button>
+            <button type="submit" class="btn-primary">Change Password</button>
         </form>
     `;
 
     document.getElementById('changePasswordForm').addEventListener('submit', (e) => {
         e.preventDefault();
         clearErrors(e.target);
-        
+
         const currentInput = document.getElementById('currentPass');
         const newInput = document.getElementById('newPass');
         const confirmInput = document.getElementById('confirmNewPass');
-        
+
         let isValid = true;
 
         if (currentInput.value !== currentUser.password) {
@@ -129,23 +122,21 @@ document.addEventListener('DOMContentLoaded', () => {
             isValid = false;
         }
 
-        if (isValid) {
-            currentUser.password = newInput.value;
-            const userIndex = users.findIndex(u => u.id === currentUser.id);
-            users[userIndex] = currentUser;
-            localStorage.setItem('crm_users', JSON.stringify(users));
-            
-            e.target.reset();
-            window.showToast('Password changed ✓', 'success');
-        }
+        if (!isValid) return;
+
+        currentUser.password = newInput.value;
+        const userIndex = users.findIndex(u => u.id === currentUser.id);
+        users[userIndex] = currentUser;
+        localStorage.setItem('crm_users', JSON.stringify(users));
+
+        e.target.reset();
+        window.showToast('Password changed ✓', 'success');
     });
 
-    // P5.4 - Reset CRM Data
-    const resetDataBtn = document.getElementById('resetDataBtn');
-    resetDataBtn.addEventListener('click', () => {
+    document.getElementById('resetDataBtn').addEventListener('click', () => {
         if (confirm('Are you sure you want to reset all CRM data? This will clear all clients and reload the default API data.')) {
             localStorage.removeItem('crm_clients');
-            window.location.href = 'clients.html'; // გადავამისამართოთ clients.html-ზე, სადაც თავიდან ჩაიტვირთება 
+            window.location.href = 'clients.html';
         }
     });
 });

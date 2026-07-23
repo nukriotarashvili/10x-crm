@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const welcomeMessage = document.getElementById('welcomeMessage');
     const liveClock = document.getElementById('liveClock');
-    const dashboardPanel = document.querySelector('.panel'); // პირველი panel
+    const dashboardPanel = document.getElementById('dashboardContent');
+    if (!dashboardPanel) return;
 
     // P3.1 - მისალმება
     const session = JSON.parse(localStorage.getItem('crm_session'));

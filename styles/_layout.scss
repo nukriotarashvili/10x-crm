@@ -201,3 +201,120 @@
     &:hover { background: var(--error-color); color: white; }
   }
 }
+
+.toolbar {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.toolbar-input,
+.toolbar-select {
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-primary);
+}
+
+.toolbar-input {
+  min-width: 200px;
+}
+
+.toolbar-select {
+  margin-left: auto;
+}
+
+.filters {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.chip {
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 0.85rem;
+
+  &.active,
+  &:hover {
+    background: rgba(26, 54, 93, 0.1);
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+}
+
+.loading-state,
+.error-state {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-secondary);
+}
+
+.error-state {
+  color: var(--error-color);
+}
+
+.live-clock {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.profile-forms {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 600px;
+}
+
+.profile-form {
+  margin-top: 1rem;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.profile-avatar {
+  width: 60px;
+  height: 60px;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.profile-meta,
+.profile-since {
+  color: var(--text-secondary);
+}
+
+.profile-since {
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.panel--danger {
+  border-color: var(--error-color);
+
+  h3 {
+    color: var(--error-color);
+    margin-bottom: 1rem;
+  }
+}
+
+.deal-value {
+  color: var(--success-color);
+  font-weight: bold;
+}

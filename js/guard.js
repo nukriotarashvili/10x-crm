@@ -1,8 +1,8 @@
 // P0.1 - Auth Guard (წვდომის კონტროლი)
 const checkAuth = () => {
     const session = localStorage.getItem('crm_session');
-    const path = window.location.pathname;
-    const isPublicPage = path.endsWith('index.html') || path.endsWith('signup.html') || path === '/' || path.endsWith('10x-crm/'); 
+    const fileName = window.location.pathname.split('/').pop() || 'index.html';
+    const isPublicPage = fileName === '' || fileName === 'index.html' || fileName === 'signup.html';
 
     if (!session && !isPublicPage) {
         window.location.href = 'index.html';
@@ -11,18 +11,16 @@ const checkAuth = () => {
     }
 };
 
-// ვუშვებთ დაუყოვნებლივ
 checkAuth();
 
 // P0.2 & P0.3 - გლობალური ნავიგაცია, Logout, თემა
 document.addEventListener('DOMContentLoaded', () => {
-    // თემის დაყენება
-    const themeToggle = document.getElementById('themeToggle');
     const currentTheme = localStorage.getItem('crm_theme') || 'light';
     if (currentTheme === 'dark') {
         document.body.classList.add('dark-theme');
     }
 
+    const themeToggle = document.getElementById('themeToggle');
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {
             document.body.classList.toggle('dark-theme');
@@ -31,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Logout
     const logoutBtn = document.getElementById('logoutBtn');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', () => {
@@ -40,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ლოგოზე დაჭერით მთავარზე დაბრუნება
     const logoBrand = document.getElementById('logoBrand');
     if (logoBrand) {
         logoBrand.addEventListener('click', () => {

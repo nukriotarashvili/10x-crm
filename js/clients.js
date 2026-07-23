@@ -1,24 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
     let clientsState = [];
+    let activeFilter = 'All';
+
     const clientsContainer = document.getElementById('clientsContainer');
     const addClientBtn = document.getElementById('addClientBtn');
     const addClientModal = document.getElementById('addClientModal');
     const closeModalBtn = document.getElementById('closeModalBtn');
     const addClientForm = document.getElementById('addClientForm');
+    const searchInput = document.getElementById('searchInput');
+    const sortSelect = document.getElementById('sortSelect');
 
-    // --- P4.2 ჩატვირთვა (API ან localStorage) ---
     const loadClients = async () => {
         const storedClients = localStorage.getItem('crm_clients');
-        
+
         if (storedClients) {
             clientsState = JSON.parse(storedClients);
-            renderClients(clientsState);
+            applyFiltersAndRender();
         } else {
             try {
                 const response = await fetch('https://dummyjson.com/users?limit=30');
                 if (!response.ok) throw new Error('Network response was not ok');
                 const data = await response.json();
-                
+
                 clientsState = data.users.map(user => ({
                     id: user.id,
                     name: `${user.firstName} ${user.lastName}`,
@@ -27,35 +30,62 @@ document.addEventListener('DOMContentLoaded', () => {
                     company: user.company.name,
                     image: user.image,
                     status: 'Lead',
-                    dealValue: Math.floor(Math.random() * 9500) + 500, // 500-10000
+                    dealValue: Math.floor(Math.random() * 9500) + 500,
                     notes: [],
                     createdAt: new Date().toISOString()
                 }));
-                
+
                 saveState();
-                renderClients(clientsState);
+                applyFiltersAndRender();
             } catch (error) {
                 clientsContainer.innerHTML = `
-                    <div style="text-align: center; color: var(--error-color); padding: 2rem;">
+                    <div class="error-state">
                         Could not load clients. Check your connection and try again.
                         <br><br>
-                        <button onclick="window.location.reload()" style="padding: 0.5rem 1rem; cursor: pointer;">Retry</button>
+                        <button type="button" onclick="window.location.reload()">Retry</button>
                     </div>`;
             }
         }
     };
 
-    // --- State-ის შენახვა (ოქროს ციკლის ნაწილი) ---
     const saveState = () => {
         localStorage.setItem('crm_clients', JSON.stringify(clientsState));
     };
 
-    // --- P4.3 სიის რენდერი ---
+    const applyFiltersAndRender = () => {
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        const sortValue = sortSelect.value;
+
+        let filtered = [...clientsState];
+
+        if (activeFilter !== 'All') {
+            filtered = filtered.filter(client => client.status === activeFilter);
+        }
+
+        if (searchTerm) {
+            filtered = filtered.filter(client =>
+                client.name.toLowerCase().includes(searchTerm) ||
+                client.email.toLowerCase().includes(searchTerm) ||
+                (client.company && client.company.toLowerCase().includes(searchTerm))
+            );
+        }
+
+        if (sortValue === 'newest') {
+            filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        } else if (sortValue === 'name') {
+            filtered.sort((a, b) => a.name.localeCompare(b.name));
+        } else if (sortValue === 'value') {
+            filtered.sort((a, b) => b.dealValue - a.dealValue);
+        }
+
+        renderClients(filtered);
+    };
+
     const renderClients = (clientsArray) => {
         clientsContainer.innerHTML = '';
-        
+
         if (clientsArray.length === 0) {
-            clientsContainer.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--text-secondary);">No clients found.</div>';
+            clientsContainer.innerHTML = '<div class="loading-state">No clients found.</div>';
             return;
         }
 
@@ -63,9 +93,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const card = document.createElement('div');
             card.className = 'client-card';
             card.setAttribute('data-id', client.id);
-            
-            // Format Currency
-            const formattedValue = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(client.dealValue);
+
+            const formattedValue = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                maximumFractionDigits: 0
+            }).format(client.dealValue);
             const statusClass = client.status.toLowerCase();
 
             card.innerHTML = `
@@ -73,19 +106,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="info">
                     <h3>${client.name}</h3>
                     <p>${client.company || 'No Company'} • ${client.email}</p>
-                    <p style="color: var(--success-color); font-weight: bold;">${formattedValue}</p>
+                    <p class="deal-value">${formattedValue}</p>
                 </div>
                 <div>
                     <span class="badge ${statusClass}">${client.status}</span>
                 </div>
-                <button class="delete-btn" data-id="${client.id}">Delete</button>
+                <button type="button" class="delete-btn" data-id="${client.id}">Delete</button>
             `;
 
             clientsContainer.appendChild(card);
         });
     };
 
-    // --- P4.4 Add Client მოდალის მართვა და ვალიდაცია ---
     addClientBtn.addEventListener('click', () => {
         addClientModal.style.display = 'flex';
     });
@@ -118,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     document.querySelectorAll('#addClientForm input').forEach(input => {
-        input.addEventListener('input', function() {
+        input.addEventListener('input', function () {
             this.classList.remove('input-error');
             const next = this.nextElementSibling;
             if (next && next.classList.contains('error-text')) next.remove();
@@ -166,67 +198,73 @@ document.addEventListener('DOMContentLoaded', () => {
             isValid = false;
         }
 
-        if (isValid) {
-            const newClient = {
-                name: name,
-                email: email,
-                phone: phone,
-                company: companyInput.value.trim(),
-                dealValue: dealValue,
-                status: statusInput.value,
-                notes: [],
-                createdAt: new Date().toISOString(),
-                image: 'https://dummyjson.com/icon/new/128' // Default avatar
-            };
+        if (!isValid) return;
 
-            try {
-                // იმიტირებული POST რიქვესთი (P4.4)
-                const response = await fetch('https://dummyjson.com/users/add', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(newClient)
-                });
-                
-                const data = await response.json();
-                newClient.id = data.id || Date.now(); // DummyJSON-მა შეიძლება არ დააბრუნოს უნიკალური ID
-                
-                clientsState.unshift(newClient); // ვამატებთ მასივის თავში
-                saveState();
-                renderClients(clientsState);
-                closeModal();
-                window.showToast('Client added ✓', 'success');
-                
-            } catch (error) {
-                window.showToast('Error adding client', 'error');
-            }
+        const newClient = {
+            name,
+            email,
+            phone,
+            company: companyInput.value.trim(),
+            dealValue,
+            status: statusInput.value,
+            notes: [],
+            createdAt: new Date().toISOString(),
+            image: 'https://dummyjson.com/icon/new/128'
+        };
+
+        try {
+            const response = await fetch('https://dummyjson.com/users/add', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newClient)
+            });
+
+            const data = await response.json();
+            newClient.id = data.id || Date.now();
+
+            clientsState.unshift(newClient);
+            saveState();
+            applyFiltersAndRender();
+            closeModal();
+            window.showToast('Client added ✓', 'success');
+        } catch (error) {
+            window.showToast('Error adding client', 'error');
         }
     });
 
-    // --- P4.5 წაშლა (Event Delegation) ---
     clientsContainer.addEventListener('click', async (e) => {
-        if (e.target.classList.contains('delete-btn')) {
-            e.stopPropagation(); // რომ ბარათზე დაჭერამ არ იმუშაოს
-            const clientId = e.target.getAttribute('data-id');
-            
-            if (confirm("Delete this client? This cannot be undone.")) {
-                try {
-                    // იმიტირებული DELETE (P4.5)[cite: 1]
-                    await fetch(`https://dummyjson.com/users/${clientId}`, {
-                        method: 'DELETE',
-                    });
-                    
-                    // 404 რომც დაბრუნდეს DummyJSON-დან ჩვენი დამატებულისთვის, მაინც ვშლით ლოკალურად
-                    clientsState = clientsState.filter(c => c.id.toString() !== clientId.toString());
-                    saveState();
-                    renderClients(clientsState);
-                    window.showToast('Client deleted ✓', 'success');
-                } catch (error) {
-                    window.showToast('Error deleting client', 'error');
-                }
-            }
+        if (!e.target.classList.contains('delete-btn')) return;
+
+        e.stopPropagation();
+        const clientId = e.target.getAttribute('data-id');
+
+        if (!confirm('Delete this client? This cannot be undone.')) return;
+
+        try {
+            await fetch(`https://dummyjson.com/users/${clientId}`, {
+                method: 'DELETE'
+            });
+
+            clientsState = clientsState.filter(c => c.id.toString() !== clientId.toString());
+            saveState();
+            applyFiltersAndRender();
+            window.showToast('Client deleted ✓', 'success');
+        } catch (error) {
+            window.showToast('Error deleting client', 'error');
         }
     });
 
-    // საწყისი ჩატვირთვა
+    searchInput.addEventListener('input', applyFiltersAndRender);
+    sortSelect.addEventListener('change', applyFiltersAndRender);
+
+    document.querySelectorAll('.filters .chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+            document.querySelectorAll('.filters .chip').forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            activeFilter = chip.dataset.status;
+            applyFiltersAndRender();
+        });
+    });
+
     loadClients();
 });

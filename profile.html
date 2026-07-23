@@ -27,26 +27,21 @@
             </div>
 
             <div class="panel" id="profileInfoBlock">
-                <!-- User details will be rendered here -->
                 Loading profile...
             </div>
-            
-            <div style="display: grid; gap: 1.5rem; max-width: 600px;">
-                <div class="panel">
+
+            <div class="profile-forms">
+                <div class="panel" id="editProfilePanel">
                     <h3>Edit Profile</h3>
-                    <!-- Profile Form skeleton -->
-                </div>
-                
-                <div class="panel">
-                    <h3>Change Password</h3>
-                    <!-- Password Form skeleton -->
                 </div>
 
-                <div class="panel" style="border-color: var(--error-color);">
-                    <h3 style="color: var(--error-color); margin-bottom: 1rem;">Data</h3>
-                    <button id="resetDataBtn" style="padding: 0.75rem 1rem; background: transparent; color: var(--error-color); border: 1px solid var(--error-color); border-radius: 6px; cursor: pointer;">
-                        Reset CRM Data
-                    </button>
+                <div class="panel" id="changePasswordPanel">
+                    <h3>Change Password</h3>
+                </div>
+
+                <div class="panel panel--danger">
+                    <h3>Data</h3>
+                    <button type="button" id="resetDataBtn" class="btn-danger">Reset CRM Data</button>
                 </div>
             </div>
         </main>
