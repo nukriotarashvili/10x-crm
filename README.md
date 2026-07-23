@@ -30,3 +30,6 @@
 ## Development Progress / განვითარების პროგრესი
 **[EN]** Implemented full authentication cycle (Signup, Login, Validation) and global Auth Guard to protect routes.
 **[GE]** დაინერგა ავტორიზაციის სრული ციკლი (რეგისტრაცია, ლოგინი, ვალიდაცია) და გლობალური Auth Guard მარშრუტების დასაცავად.
+
+**[EN]** Implemented Core Client logic: Fetching initial data from DummyJSON, rendering list, and handling POST (Add) and DELETE operations with LocalStorage state management.
+**[GE]** დაინერგა კლიენტების ბაზის მთავარი ლოგიკა: მონაცემების DummyJSON-დან წამოღება, რენდერი, დამატების (POST) და წაშლის (DELETE) ოპერაციები LocalStorage-ის მდგომარეობის მართვით.

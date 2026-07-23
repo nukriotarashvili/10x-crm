@@ -54,7 +54,48 @@
                 </div>
             </div>
         </main>
+        
     </div>
+</body>
+<!-- Add Client Modal (P4.4) -->
+<div id="addClientModal" class="modal-overlay" style="display: none;">
+    <div class="modal-card">
+        <div class="modal-header">
+            <h2>Add Client</h2>
+            <button id="closeModalBtn" class="close-btn">&times;</button>
+        </div>
+        <form id="addClientForm" novalidate>
+            <div class="form-group">
+                <input type="text" id="clientName" placeholder="Name" required>
+            </div>
+            <div class="form-group">
+                <input type="email" id="clientEmail" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="clientPhone" placeholder="Phone">
+            </div>
+            <div class="form-group">
+                <input type="text" id="clientCompany" placeholder="Company">
+            </div>
+            <div class="form-group">
+                <input type="number" id="clientDealValue" placeholder="Deal Value ($)" required>
+            </div>
+            <div class="form-group">
+                <select id="clientStatus">
+                    <option value="Lead">Lead</option>
+                    <option value="Contacted">Contacted</option>
+                    <option value="Won">Won</option>
+                    <option value="Lost">Lost</option>
+                </select>
+            </div>
+            <button type="submit">Add Client</button>
+        </form>
+    </div>
+</div>
+
+</div>
+<script src="js/guard.js"></script>
+<script src="js/clients.js"></script>
 </body>
 <script src="js/guard.js"></script>
 </html>
