@@ -1,0 +1,73 @@
+@use "variables" as *;
+@use "global" as *;
+
+.auth {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-lg;
+  background: linear-gradient(135deg, #eff6ff 0%, $color-bg 50%, #f0fdf4 100%);
+
+  &__container {
+    width: 100%;
+    max-width: 420px;
+  }
+
+  &__logo {
+    text-align: center;
+    margin-bottom: $spacing-xl;
+
+    h1 {
+      font-size: $font-size-2xl;
+      font-weight: 700;
+      color: $color-primary;
+    }
+
+    p {
+      color: $color-text-muted;
+      font-size: $font-size-sm;
+      margin-top: $spacing-xs;
+    }
+  }
+
+  &__card {
+    @include card;
+  }
+
+  &__title {
+    font-size: $font-size-xl;
+    font-weight: 600;
+    margin-bottom: $spacing-xs;
+  }
+
+  &__subtitle {
+    color: $color-text-muted;
+    font-size: $font-size-sm;
+    margin-bottom: $spacing-xl;
+  }
+
+  &__footer {
+    text-align: center;
+    margin-top: $spacing-lg;
+    font-size: $font-size-sm;
+    color: $color-text-muted;
+  }
+
+  &__divider {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    margin: $spacing-lg 0;
+    color: $color-text-muted;
+    font-size: $font-size-sm;
+
+    &::before,
+    &::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background-color: $color-border;
+    }
+  }
+}
