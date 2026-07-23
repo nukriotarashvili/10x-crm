@@ -7,3 +7,12 @@
 ## Tech Stack / ტექნოლოგიები
 **[EN]** HTML5, SCSS, Vanilla JavaScript, LocalStorage API, DummyJSON API.
 **[GE]** HTML5, SCSS, Vanilla JavaScript, LocalStorage API, DummyJSON API.
+
+## Features / ფუნქციონალი
+### [EN]
+- **Authentication**: Sign up and Login functionality with detailed form validation.
+- **Theme Switching**: Toggle between Dark and Light themes seamlessly.
+
+### [GE]
+- **ავტორიზაცია**: რეგისტრაციისა და ლოგინის ფუნქციონალი ფორმების დეტალური ვალიდაციით.
+- **თემები**: მარტივი გადართვა ბნელ (Dark) და ნათელ (Light) თემებს შორის.

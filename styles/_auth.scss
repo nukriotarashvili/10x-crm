@@ -1,73 +1,63 @@
-@use "variables" as *;
-@use "global" as *;
-
-.auth {
-  min-height: 100vh;
+.auth-container {
   display: flex;
-  align-items: center;
   justify-content: center;
-  padding: $spacing-lg;
-  background: linear-gradient(135deg, #eff6ff 0%, $color-bg 50%, #f0fdf4 100%);
+  align-items: center;
+  min-height: 100vh;
 
-  &__container {
+  .auth-card {
+    background-color: var(--card-bg);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 420px;
-  }
-
-  &__logo {
-    text-align: center;
-    margin-bottom: $spacing-xl;
+    border: 1px solid var(--border-color);
 
     h1 {
-      font-size: $font-size-2xl;
-      font-weight: 700;
-      color: $color-primary;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: var(--primary-color);
     }
 
-    p {
-      color: $color-text-muted;
-      font-size: $font-size-sm;
-      margin-top: $spacing-xs;
+    .form-group {
+      margin-bottom: 1.2rem;
+
+      input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        background-color: transparent;
+        color: var(--text-primary);
+        font-size: 1rem;
+
+        &:focus {
+          outline: none;
+          border-color: var(--primary-color);
+        }
+      }
     }
-  }
 
-  &__card {
-    @include card;
-  }
+    button {
+      width: 100%;
+      padding: 0.85rem;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: opacity 0.2s;
 
-  &__title {
-    font-size: $font-size-xl;
-    font-weight: 600;
-    margin-bottom: $spacing-xs;
-  }
+      &:hover { opacity: 0.9; }
+    }
 
-  &__subtitle {
-    color: $color-text-muted;
-    font-size: $font-size-sm;
-    margin-bottom: $spacing-xl;
-  }
-
-  &__footer {
-    text-align: center;
-    margin-top: $spacing-lg;
-    font-size: $font-size-sm;
-    color: $color-text-muted;
-  }
-
-  &__divider {
-    display: flex;
-    align-items: center;
-    gap: $spacing-md;
-    margin: $spacing-lg 0;
-    color: $color-text-muted;
-    font-size: $font-size-sm;
-
-    &::before,
-    &::after {
-      content: "";
-      flex: 1;
-      height: 1px;
-      background-color: $color-border;
+    .auth-links {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
     }
   }
 }

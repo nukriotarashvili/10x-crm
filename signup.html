@@ -1,55 +1,37 @@
 <!DOCTYPE html>
-<html lang="ka">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>10x CRM — რეგისტრაცია</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10X CRM - Sign Up</title>
+    <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-  <div class="auth">
-    <div class="auth__container">
-      <div class="auth__logo">
-        <h1>10x CRM</h1>
-        <p>კლიენტების მართვის სისტემა</p>
-      </div>
-
-      <div class="auth__card">
-        <h2 class="auth__title">რეგისტრაცია</h2>
-        <p class="auth__subtitle">შექმენით ახალი ანგარიში</p>
-
-        <form action="index.html" method="get">
-          <div class="form-group">
-            <label for="name">სახელი</label>
-            <input type="text" id="name" name="name" placeholder="თქვენი სახელი" required>
-          </div>
-
-          <div class="form-group">
-            <label for="email">ელ. ფოსტა</label>
-            <input type="email" id="email" name="email" placeholder="example@mail.com" required>
-          </div>
-
-          <div class="form-group">
-            <label for="password">პაროლი</label>
-            <input type="password" id="password" name="password" placeholder="••••••••" required>
-          </div>
-
-          <div class="form-group">
-            <label for="confirm-password">გაიმეორეთ პაროლი</label>
-            <input type="password" id="confirm-password" name="confirm-password" placeholder="••••••••" required>
-          </div>
-
-          <button type="submit" class="btn btn--primary btn--full">რეგისტრაცია</button>
-        </form>
-
-        <p class="auth__footer">
-          უკვე გაქვთ ანგარიში? <a href="index.html">შესვლა</a>
-        </p>
-      </div>
+    <div class="auth-container">
+        <div class="auth-card">
+            <h1>Create your account</h1>
+            <form id="signupForm" novalidate>
+                <div class="form-group">
+                    <input type="text" id="signupName" placeholder="Full Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="signupEmail" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="signupCompany" placeholder="Company (optional)">
+                </div>
+                <div class="form-group">
+                    <input type="password" id="signupPassword" placeholder="Password" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="signupConfirmPassword" placeholder="Confirm Password" required>
+                </div>
+                <button type="submit">Create Account</button>
+            </form>
+            <div class="auth-links">
+                Already have an account? <a href="index.html">Log in</a>
+            </div>
+        </div>
     </div>
-  </div>
 </body>
 </html>
