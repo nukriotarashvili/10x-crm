@@ -1,71 +1,59 @@
 <!DOCTYPE html>
-<html lang="ka">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>10x CRM — კლიენტები</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10X CRM - Clients</title>
+    <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-  <div class="layout">
-    <aside class="layout__sidebar">
-      <div class="layout__sidebar-logo">10x CRM</div>
-      <nav class="layout__nav">
-        <a href="dashboard.html" class="layout__nav-item">დაშბორდი</a>
-        <a href="clients.html" class="layout__nav-item layout__nav-item--active">კლიენტები</a>
-        <a href="profile.html" class="layout__nav-item">პროფილი</a>
-      </nav>
-    </aside>
+    <div class="app-layout">
+        <!-- Sidebar Navigation (P0) -->
+        <aside class="sidebar">
+            <div class="brand" id="logoBrand">10X CRM</div>
+            <nav class="nav-links">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="clients.html" class="active">Clients</a>
+                <a href="profile.html">Profile</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="themeToggle">Theme 🌓</button>
+                <button id="logoutBtn">Logout</button>
+            </div>
+        </aside>
 
-    <div class="layout__main">
-      <header class="layout__header">
-        <h1 class="layout__header-title">კლიენტები</h1>
-        <button type="button" class="btn btn--primary">+ ახალი კლიენტი</button>
-      </header>
+        <main class="main-content">
+            <div class="page-header">
+                <h1>Clients</h1>
+                <button id="addClientBtn" style="padding: 0.75rem 1.5rem; background: var(--primary-color); color: white; border: none; border-radius: 6px; cursor: pointer;">
+                    + Add Client
+                </button>
+            </div>
 
-      <main class="layout__content">
-        <div class="page-header">
-          <h2>კლიენტების სია</h2>
-          <p>მართეთ და უყურეთ თქვენს კლიენტებს.</p>
-        </div>
+            <!-- Toolbar (Search, Filter, Sort) -->
+            <div class="panel" style="display: flex; gap: 1rem; align-items: center;">
+                <input type="text" id="searchInput" placeholder="Search..." style="padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 4px;">
+                <div class="filters" style="display: flex; gap: 0.5rem;">
+                    <button class="chip active">All</button>
+                    <button class="chip">Lead</button>
+                    <button class="chip">Contacted</button>
+                    <button class="chip">Won</button>
+                    <button class="chip">Lost</button>
+                </div>
+                <select id="sortSelect" style="margin-left: auto; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 4px;">
+                    <option value="newest">Sort: Newest</option>
+                    <option value="name">Name A->Z</option>
+                    <option value="value">Deal value</option>
+                </select>
+            </div>
 
-        <div class="table-wrapper">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>სახელი</th>
-                <th>ელ. ფოსტა</th>
-                <th>ტელეფონი</th>
-                <th>სტატუსი</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>გიორგი ბერიძე</td>
-                <td>giorgi@example.com</td>
-                <td>+995 555 123 456</td>
-                <td>აქტიური</td>
-              </tr>
-              <tr>
-                <td>ნინო კვარაცხელია</td>
-                <td>nino@example.com</td>
-                <td>+995 555 234 567</td>
-                <td>აქტიური</td>
-              </tr>
-              <tr>
-                <td>დavit მელაძე</td>
-                <td>davit@example.com</td>
-                <td>+995 555 345 678</td>
-                <td>ლიდი</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </main>
+            <!-- Clients List Container -->
+            <div id="clientsContainer">
+                <div style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+                    Loading clients...
+                </div>
+            </div>
+        </main>
     </div>
-  </div>
 </body>
 </html>

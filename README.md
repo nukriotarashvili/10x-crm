@@ -16,3 +16,13 @@
 ### [GE]
 - **ავტორიზაცია**: რეგისტრაციისა და ლოგინის ფუნქციონალი ფორმების დეტალური ვალიდაციით.
 - **თემები**: მარტივი გადართვა ბნელ (Dark) და ნათელ (Light) თემებს შორის.
+
+### [EN]
+- **Dashboard**: Live clock and statistical overview of the business.
+- **Client Management**: Full CRUD operations for clients, including filtering, sorting, and searching.
+- **Profile Management**: Update personal details, change password, and reset application data.
+
+### [GE]
+- **Dashboard**: ცოცხალი საათი და ბიზნესის სტატისტიკური მიმოხილვა.
+- **კლიენტების მართვა**: კლიენტების სრული CRUD ოპერაციები, ფილტრაციის, სორტირებისა და ძებნის ჩათვლით.
+- **პროფილის მართვა**: პირადი მონაცემების განახლება, პაროლის შეცვლა და აპლიკაციის მონაცემების განულება.

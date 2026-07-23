@@ -1,67 +1,55 @@
 <!DOCTYPE html>
-<html lang="ka">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>10x CRM — პროფილი</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10X CRM - Profile</title>
+    <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-  <div class="layout">
-    <aside class="layout__sidebar">
-      <div class="layout__sidebar-logo">10x CRM</div>
-      <nav class="layout__nav">
-        <a href="dashboard.html" class="layout__nav-item">დაშბორდი</a>
-        <a href="clients.html" class="layout__nav-item">კლიენტები</a>
-        <a href="profile.html" class="layout__nav-item layout__nav-item--active">პროფილი</a>
-      </nav>
-    </aside>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="brand" id="logoBrand">10X CRM</div>
+            <nav class="nav-links">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="clients.html">Clients</a>
+                <a href="profile.html" class="active">Profile</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="themeToggle">Theme 🌓</button>
+                <button id="logoutBtn">Logout</button>
+            </div>
+        </aside>
 
-    <div class="layout__main">
-      <header class="layout__header">
-        <h1 class="layout__header-title">პროფილი</h1>
-        <a href="index.html" class="btn btn--secondary">გასვლა</a>
-      </header>
+        <main class="main-content">
+            <div class="page-header">
+                <h1>Profile</h1>
+            </div>
 
-      <main class="layout__content">
-        <div class="page-header">
-          <h2>ჩემი პროფილი</h2>
-          <p>განაახლეთ თქვენი პირადი ინფორმაცია.</p>
-        </div>
+            <div class="panel" id="profileInfoBlock">
+                <!-- User details will be rendered here -->
+                Loading profile...
+            </div>
+            
+            <div style="display: grid; gap: 1.5rem; max-width: 600px;">
+                <div class="panel">
+                    <h3>Edit Profile</h3>
+                    <!-- Profile Form skeleton -->
+                </div>
+                
+                <div class="panel">
+                    <h3>Change Password</h3>
+                    <!-- Password Form skeleton -->
+                </div>
 
-        <div class="profile-grid">
-          <div class="profile-avatar">
-            <div class="profile-avatar__circle">GB</div>
-            <div class="profile-avatar__name">გიორგი ბერიძე</div>
-            <div class="profile-avatar__role">ადმინისტრატორი</div>
-          </div>
-
-          <div class="card">
-            <form>
-              <div class="form-group">
-                <label for="name">სახელი</label>
-                <input type="text" id="name" name="name" value="გიორგი ბერიძე">
-              </div>
-
-              <div class="form-group">
-                <label for="email">ელ. ფოსტა</label>
-                <input type="email" id="email" name="email" value="giorgi@example.com">
-              </div>
-
-              <div class="form-group">
-                <label for="phone">ტელეფონი</label>
-                <input type="tel" id="phone" name="phone" value="+995 555 123 456">
-              </div>
-
-              <button type="submit" class="btn btn--primary">შენახვა</button>
-            </form>
-          </div>
-        </div>
-      </main>
+                <div class="panel" style="border-color: var(--error-color);">
+                    <h3 style="color: var(--error-color); margin-bottom: 1rem;">Data</h3>
+                    <button id="resetDataBtn" style="padding: 0.75rem 1rem; background: transparent; color: var(--error-color); border: 1px solid var(--error-color); border-radius: 6px; cursor: pointer;">
+                        Reset CRM Data
+                    </button>
+                </div>
+            </div>
+        </main>
     </div>
-  </div>
 </body>
 </html>

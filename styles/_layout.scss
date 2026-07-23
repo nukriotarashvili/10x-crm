@@ -1,196 +1,94 @@
-@use "variables" as *;
-@use "global" as *;
-
-.layout {
+// მთავარი განლაგება (Sidebar + Content)
+.app-layout {
   display: flex;
   min-height: 100vh;
+}
 
-  &__sidebar {
-    width: $sidebar-width;
-    background-color: $color-surface;
-    border-right: 1px solid $color-border;
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    z-index: 100;
-  }
+// ნავიგაცია
+.sidebar {
+  width: 250px;
+  background-color: var(--card-bg);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
 
-  &__sidebar-logo {
-    height: $header-height;
-    display: flex;
-    align-items: center;
-    padding: 0 $spacing-lg;
-    border-bottom: 1px solid $color-border;
-    font-size: $font-size-xl;
+  .brand {
+    font-size: 1.5rem;
     font-weight: 700;
-    color: $color-primary;
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    cursor: pointer;
   }
 
-  &__nav {
-    flex: 1;
-    padding: $spacing-md;
-    overflow-y: auto;
-  }
-
-  &__nav-item {
-    display: flex;
-    align-items: center;
-    gap: $spacing-sm;
-    padding: $spacing-sm $spacing-md;
-    border-radius: $border-radius;
-    color: $color-text-muted;
-    font-weight: 500;
-    transition: background-color $transition, color $transition;
-
-    &:hover {
-      background-color: $color-bg;
-      color: $color-text;
-    }
-
-    &--active {
-      background-color: rgba($color-primary, 0.1);
-      color: $color-primary;
-    }
-  }
-
-  &__main {
-    flex: 1;
-    margin-left: $sidebar-width;
+  .nav-links {
     display: flex;
     flex-direction: column;
+    gap: 0.5rem;
+    flex-grow: 1;
+
+    a {
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      transition: background-color 0.2s, color 0.2s;
+
+      &:hover, &.active {
+        background-color: rgba(26, 54, 93, 0.1); // primary-color გამჭვირვალობით
+        color: var(--primary-color);
+        font-weight: 600;
+      }
+    }
   }
 
-  &__header {
-    height: $header-height;
-    background-color: $color-surface;
-    border-bottom: 1px solid $color-border;
+  .sidebar-footer {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1rem;
+
+    button {
+      padding: 0.75rem 1rem;
+      background: none;
+      border: none;
+      text-align: left;
+      color: var(--text-secondary);
+      cursor: pointer;
+      border-radius: 6px;
+      font-size: 1rem;
+
+      &:hover {
+        background-color: rgba(0,0,0,0.05);
+        color: var(--text-primary);
+      }
+    }
+  }
+}
+
+// მთავარი კონტენტი
+.main-content {
+  flex-grow: 1;
+  padding: 2rem;
+  overflow-y: auto;
+
+  .page-header {
+    display: flex;
     justify-content: space-between;
-    padding: 0 $spacing-xl;
-    position: sticky;
-    top: 0;
-    z-index: 50;
-  }
-
-  &__header-title {
-    font-size: $font-size-lg;
-    font-weight: 600;
-  }
-
-  &__content {
-    flex: 1;
-    padding: $spacing-xl;
-  }
-}
-
-.page-header {
-  margin-bottom: $spacing-xl;
-
-  h2 {
-    font-size: $font-size-2xl;
-    font-weight: 700;
-    margin-bottom: $spacing-xs;
-  }
-
-  p {
-    color: $color-text-muted;
-  }
-}
-
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: $spacing-lg;
-  margin-bottom: $spacing-xl;
-}
-
-.stat-card {
-  @include card;
-
-  &__label {
-    font-size: $font-size-sm;
-    color: $color-text-muted;
-    margin-bottom: $spacing-xs;
-  }
-
-  &__value {
-    font-size: $font-size-2xl;
-    font-weight: 700;
-  }
-}
-
-.table-wrapper {
-  @include card;
-  padding: 0;
-  overflow: hidden;
-}
-
-.table {
-  width: 100%;
-  border-collapse: collapse;
-
-  th,
-  td {
-    padding: $spacing-md $spacing-lg;
-    text-align: left;
-    border-bottom: 1px solid $color-border;
-  }
-
-  th {
-    font-size: $font-size-sm;
-    font-weight: 600;
-    color: $color-text-muted;
-    background-color: $color-bg;
-  }
-
-  tr:last-child td {
-    border-bottom: none;
-  }
-
-  tbody tr:hover {
-    background-color: rgba($color-primary, 0.02);
-  }
-}
-
-.profile-grid {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: $spacing-xl;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-  }
-}
-
-.profile-avatar {
-  @include card;
-  text-align: center;
-
-  &__circle {
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
-    background-color: rgba($color-primary, 0.1);
-    color: $color-primary;
-    display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: $font-size-2xl;
-    font-weight: 700;
-    margin: 0 auto $spacing-md;
-  }
+    margin-bottom: 2rem;
 
-  &__name {
-    font-weight: 600;
-    font-size: $font-size-lg;
+    h1 {
+      font-size: 1.75rem;
+    }
   }
+}
 
-  &__role {
-    color: $color-text-muted;
-    font-size: $font-size-sm;
-  }
+// ზოგადი ბარათის სტილი შიდა კონტენტისთვის
+.panel {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
 }

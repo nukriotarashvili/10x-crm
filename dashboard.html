@@ -1,57 +1,39 @@
 <!DOCTYPE html>
-<html lang="ka">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>10x CRM — დაშბორდი</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10X CRM - Dashboard</title>
+    <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-  <div class="layout">
-    <aside class="layout__sidebar">
-      <div class="layout__sidebar-logo">10x CRM</div>
-      <nav class="layout__nav">
-        <a href="dashboard.html" class="layout__nav-item layout__nav-item--active">დაშბორდი</a>
-        <a href="clients.html" class="layout__nav-item">კლიენტები</a>
-        <a href="profile.html" class="layout__nav-item">პროფილი</a>
-      </nav>
-    </aside>
+    <div class="app-layout">
+        <!-- Sidebar Navigation (P0) -->
+        <aside class="sidebar">
+            <div class="brand" id="logoBrand">10X CRM</div>
+            <nav class="nav-links">
+                <a href="dashboard.html" class="active">Dashboard</a>
+                <a href="clients.html">Clients</a>
+                <a href="profile.html">Profile</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="themeToggle">Theme 🌓</button>
+                <button id="logoutBtn">Logout</button>
+            </div>
+        </aside>
 
-    <div class="layout__main">
-      <header class="layout__header">
-        <h1 class="layout__header-title">დაშბორდი</h1>
-        <a href="index.html" class="btn btn--secondary">გასვლა</a>
-      </header>
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-header">
+                <h1 id="welcomeMessage">Welcome back!</h1>
+                <div id="liveClock" style="color: var(--text-secondary); font-weight: 500;"></div>
+            </div>
 
-      <main class="layout__content">
-        <div class="page-header">
-          <h2>მოგესალმებით!</h2>
-          <p>აქ ნახავთ თქვენი CRM-ის მოკლე მიმოხილვას.</p>
-        </div>
-
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-card__label">სულ კლიენტები</div>
-            <div class="stat-card__value">128</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-card__label">აქტიური გარიგებები</div>
-            <div class="stat-card__value">24</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-card__label">ახალი ლიდები</div>
-            <div class="stat-card__value">12</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-card__label">შემოსავალი (თვე)</div>
-            <div class="stat-card__value">₾45,200</div>
-          </div>
-        </div>
-      </main>
+            <!-- Dashboard ეტაპზე აქ დავამატებთ სტატისტიკის გრიდებს -->
+            <div class="panel" style="text-align: center; color: var(--text-secondary);">
+                Dashboard metrics will be rendered here.
+            </div>
+        </main>
     </div>
-  </div>
 </body>
 </html>
