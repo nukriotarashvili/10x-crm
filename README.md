@@ -33,3 +33,6 @@
 
 **[EN]** Implemented Core Client logic: Fetching initial data from DummyJSON, rendering list, and handling POST (Add) and DELETE operations with LocalStorage state management.
 **[GE]** დაინერგა კლიენტების ბაზის მთავარი ლოგიკა: მონაცემების DummyJSON-დან წამოღება, რენდერი, დამატების (POST) და წაშლის (DELETE) ოპერაციები LocalStorage-ის მდგომარეობის მართვით.
+
+**[EN]** Added Dashboard analytics (metrics, pipeline, recent clients) and Profile management (update info, password change, data reset).
+**[GE]** დაემატა Dashboard-ის ანალიტიკა (მეტრიკები, გარიგებების ეტაპები, ბოლო კლიენტები) და პროფილის მართვა (ინფორმაციის განახლება, პაროლის შეცვლა, მონაცემების განულება).
